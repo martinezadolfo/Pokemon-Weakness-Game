@@ -41,10 +41,11 @@ function getRandomInt(min, max) {
 
 function checkAnswer(id) {
   guess = document.getElementById('option-' + id + '-name').textContent.toLowerCase();
+  let score = document.getElementById('current-score').textContent.toLowerCase().split(' ');
   if (guess === answer) {
     document.getElementById('option-' + id).setAttribute('src', './answers/checkmark.png');
-    document.getElementById('current-score').innerHTML = 'changed';
-    
+    scoreChange = Number(score[0]);
+    document.getElementById('current-score').innerHTML = (scoreChange + 1) + ' out of 5 correct';
   } else {
     document.getElementById('option-' + id).setAttribute('src', './answers/X.png');
   }
@@ -66,9 +67,8 @@ function setBoard() {
   let numbers = ["zero", "one", "two", "three", "four"]; 
   let pokemonNumbers = [0, 1, 2, 3, 4];
   numbers.forEach(element => document.getElementById('option-' + element).addEventListener('click', () => {checkAnswer(element);})); // adding listeners to each option
-  document.getElementById('hint-button').addEventListener('click', function() {document.getElementById('hint-type').setAttribute('src', './symbols/' + hint + '.png');}); //add listener to hint
   setOptions(numbers);
-  setQuestion(pokemonNumbers);    
+  setQuestion(pokemonNumbers);   
   console.log(pokemonNumbers);                                                                                                                                                                                                   
 }
 
@@ -80,6 +80,7 @@ function setQuestion(options) {
   pokemonName.innerHTML = pokemons[shuffledNumbers[0]].name.charAt(0).toUpperCase() + pokemons[shuffledNumbers[0]].name.slice(1); // sets pokemon name
   answer = pokemons[shuffledNumbers[0]].weakness;
   hint = pokemons[shuffledNumbers[0]].type;
+  document.getElementById('hint-button').addEventListener('click', function() {document.getElementById('hint-type').setAttribute('src', './symbols/' + hint + '.png');}); //add listener to hint 
   delete shuffledNumbers[0];
 }
 
