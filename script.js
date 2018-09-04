@@ -1,5 +1,5 @@
 var answer, guess, hint;
-const numbers = ["zero", "one", "two", "three", "four"]; 
+
 const types = ["fire", "grass", "electric", "ground", "water"];
 const pokemons = [
   {
@@ -50,22 +50,37 @@ function checkAnswer(id) {
   }
 }
 
-function setRound() {
-  Shuffle(numbers).map((x, index) => {
-    let randomNumber = getRandomInt(0, 4);
-    let pokemonPicture = document.getElementById('pokemon-picture');
-    let pokemonName = document.getElementById('pokemon-name');
+function setOptions(optionsArray) {
+  Shuffle(optionsArray).map((x, index) => { // runs through shuffled array of numbers
     let option = document.getElementById('option-' + x);
     let optionName = document.getElementById('option-' + x + '-name');
-    pokemonPicture.setAttribute("src", "./pokemons/" + pokemons[randomNumber].name + ".png");
-    pokemonName.innerHTML = pokemons[randomNumber].name.charAt(0).toUpperCase() + pokemons[randomNumber].name.slice(1);
-    option.setAttribute("src", "./symbols/" + types[index] + ".png");
-    optionName.innerHTML = types[index].charAt(0).toUpperCase() + types[index].slice(1);
-    answer = pokemons[randomNumber].weakness;
-    hint = pokemons[randomNumber].type;
+    option.setAttribute("src", "./symbols/" + types[index] + ".png"); // sets option
+    optionName.innerHTML = types[index].charAt(0).toUpperCase() + types[index].slice(1); // sets option type name
   });
 }
 
-numbers.forEach(element => document.getElementById('option-' + element).addEventListener('click', () => {checkAnswer(element);})); // adding listeners to each option
-document.getElementById('hint-button').addEventListener('click', function() {document.getElementById('hint-type').setAttribute('src', './symbols/' + hint + '.png');}); //add listener to hint
-setRound();
+
+
+function setBoard() {
+  let answer, hint;
+  let numbers = ["zero", "one", "two", "three", "four"]; 
+  let pokemonNumbers = [0, 1, 2, 3, 4];
+  numbers.forEach(element => document.getElementById('option-' + element).addEventListener('click', () => {checkAnswer(element);})); // adding listeners to each option
+  document.getElementById('hint-button').addEventListener('click', function() {document.getElementById('hint-type').setAttribute('src', './symbols/' + hint + '.png');}); //add listener to hint
+  setOptions(numbers);
+  setQuestion(pokemonNumbers);    
+  console.log(pokemonNumbers);                                                                                                                                                                                                   
+}
+
+function setQuestion(options) {
+  let shuffledNumbers = Shuffle(options);
+  let pokemonPicture = document.getElementById('pokemon-picture');
+  let pokemonName = document.getElementById('pokemon-name');
+  pokemonPicture.setAttribute("src", "./pokemons/" + pokemons[shuffledNumbers[0]].name + ".png"); //sets pokemon picture
+  pokemonName.innerHTML = pokemons[shuffledNumbers[0]].name.charAt(0).toUpperCase() + pokemons[shuffledNumbers[0]].name.slice(1); // sets pokemon name
+  answer = pokemons[shuffledNumbers[0]].weakness;
+  hint = pokemons[shuffledNumbers[0]].type;
+  delete shuffledNumbers[0];
+}
+
+setBoard();
