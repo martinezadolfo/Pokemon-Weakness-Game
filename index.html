@@ -10,38 +10,41 @@
 <body>
   <div id="wrapper">
     <div class="score centering">
-      0 out of 5 correct
+      <p id="current-score">0 out of 5 correct</p>
     </div>
     <div class="pokemon">
       <div id="pokemon-info-container">
         <div class="pokemon-border">
-          <img src="newerbulby.png" alt="bulbasaur">
+          <img id="pokemon-picture" src="./pokemons/squirtle.png" alt="bulbasaur">
         </div>
-        <p>Bulbasaur</p>
+        <p id="pokemon-name">Loading..</p>
       </div>   
       </div>
     <div class="hint centering">
-      <button>Hint?</button>
+      <button id="hint-button">Hint?</button>
+      <div class="weakness">
+        <img id="hint-type"/>
+      </div>
+    </div>
+    <div class="zero centering">
+      <input id="option-zero" type="image" src="./symbols/grass.png" class="zoom">
+      <p id="option-zero-name">Loading..</p>
     </div>
     <div class="one centering">
-      <input type="image" src="./symbols/grass.png" class="zoom">
-      <p>Grass</p>
+      <input id="option-one" type="image" src="./symbols/fire.png" class="zoom">
+      <p id="option-one-name">Loading..</p>
     </div>
     <div class="two centering">
-      <input type="image" src="./symbols/fire.png" class="zoom">
-      <p>Fire</p>
+      <input id="option-two" src="./symbols/electric.png" type="image" class="zoom">
+      <p id="option-two-name">Loading..</p>
     </div>
     <div class="three centering">
-      <input src="./symbols/flying.png" type="image" class="zoom">
-      <p>Flying</p>
+      <input id="option-three" type="image" src="./symbols/rock.png" class="zoom">
+      <p id="option-three-name">Loading..</p>
     </div>
     <div class="four centering">
-      <input type="image" src="./symbols/rock.png" class="zoom">
-      <p>Ground</p>
-    </div>
-    <div class="five centering">
-      <input type="image" src="./symbols/water.png" class="zoom">
-      <p>Water</p>
+      <input id="option-four" type="image" src="./symbols/water.png" class="zoom">
+      <p id="option-four-name">Loading..</p>
     </div>
   </div> 
   <script src="./script.js"></script>
