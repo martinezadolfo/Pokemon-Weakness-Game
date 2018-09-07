@@ -1,4 +1,4 @@
-var answer, guess, hint;
+var answer, hint;
 
 const types = ["fire", "grass", "electric", "ground", "water"];
 const pokemons = [
@@ -40,21 +40,17 @@ function getRandomInt(min, max) {
 }
 
 function checkAnswer(id) {
-  let arrow =  document.getElementById("arrow");
   let score = document.getElementById('current-score').textContent.toLowerCase().split(' ');
   guess = document.getElementById('option-' + id + '-name').textContent.toLowerCase();
   if (guess === answer) {
     document.getElementById('option-' + id).setAttribute('src', './answers/checkmark.png');
-    scoreChange = Number(score[0]);
-    document.getElementById('current-score').innerHTML = (scoreChange + 1) + ' out of 5 correct';
+    let scoreChange = Number(score.slice()[0]);
+    scoreChange++;
+    document.getElementById('current-score').innerHTML = scoreChange.toString() + ' out of 5 correct';
   } else {
     document.getElementById('option-' + id).setAttribute('src', './answers/X.png');
   }
-  arrow.style.visibility = "visible";
-  arrow.addEventListener('click', function () {
-    setOptions(numbers);
-    setQuestion(newChoices);
-  });
+  arrow.style.visibility = "visible"; 
 }
 
 function setOptions(optionsArray) {
@@ -70,12 +66,15 @@ function setOptions(optionsArray) {
 
 
 function setBoard() {
-  numbers.forEach(element => document.getElementById('option-' + element).addEventListener('click', () => {checkAnswer(element);})); // adding listeners to each option
+  if (newChoices.length === 0) {
+    newChoices = Shuffle(pokemonChoices.slice());
+  }
   setOptions(numbers);
   setQuestion(newChoices);                                                                                                                                                                                                     
 }
 
 function setQuestion(options) {
+  document.getElementById('hint-type').setAttribute('src', '');
   let pokemonPicture = document.getElementById('pokemon-picture');
   let pokemonName = document.getElementById('pokemon-name');
   pokemonPicture.setAttribute("src", "./pokemons/" + pokemons[options[0]].name + ".png"); //sets pokemon picture
@@ -89,5 +88,7 @@ function setQuestion(options) {
 const pokemonChoices = [0, 1, 2, 3, 4];
 const numbers = ["zero", "one", "two", "three", "four"]; 
 let newChoices = Shuffle(pokemonChoices.slice());
-setBoard();
+document.getElementById('arrow').addEventListener('click', setBoard);
+numbers.forEach(element => document.getElementById('option-' + element).addEventListener('click', () => {checkAnswer(element);})); // adding listeners to each option
 
+setBoard();
