@@ -50,7 +50,12 @@ function checkAnswer(id) {
   } else {
     document.getElementById('option-' + id).setAttribute('src', './answers/X.png');
   }
-  arrow.style.visibility = "visible"; 
+  if (document.getElementById('play-again-options').style.visibility === 'visible'){
+    return;
+  } else {
+    arrow.style.visibility = "visible"; 
+    
+  }
 }
 
 function setOptions(optionsArray) {
@@ -68,9 +73,13 @@ function setOptions(optionsArray) {
 function setBoard() {
   if (newChoices.length === 0) {
     newChoices = Shuffle(pokemonChoices.slice());
+    document.getElementById('arrow').style.visibility = 'hidden';
+    document.getElementById('play-again-options').style.visibility = 'visible';
+  } else {
+    setOptions(numbers);
+    setQuestion(newChoices);  
   }
-  setOptions(numbers);
-  setQuestion(newChoices);                                                                                                                                                                                                     
+                                                                                                                                                                                                   
 }
 
 function setQuestion(options) {
@@ -89,6 +98,11 @@ const pokemonChoices = [0, 1, 2, 3, 4];
 const numbers = ["zero", "one", "two", "three", "four"]; 
 let newChoices = Shuffle(pokemonChoices.slice());
 document.getElementById('arrow').addEventListener('click', setBoard);
+document.getElementById('yes-button').addEventListener('click', function () {
+  document.getElementById('play-again-options').style.visibility = 'hidden';
+  document.getElementById('current-score').innerHTML = '0 out of 5 correct';
+  setBoard();
+});
 numbers.forEach(element => document.getElementById('option-' + element).addEventListener('click', () => {checkAnswer(element);})); // adding listeners to each option
 
 setBoard();
