@@ -11,12 +11,12 @@ const pokemons = [
   {
     name: "charmander",
     type: "fire",
-    weakness: "water"
+    weakness: ["ground", "water"]
   },
   {
     name: "squirtle",
     type: "water",
-    weakness: "electric"
+    weakness: ["electric", "grass"]
   },
   {
     name: "pickachu",
@@ -26,7 +26,7 @@ const pokemons = [
   {
     name: "caterpie",
     type: "bug",
-    weakness: "grass"
+    weakness: "fire"
   }
 ]
 
@@ -40,9 +40,10 @@ function getRandomInt(min, max) {
 }
 
 function checkAnswer(id) {
+  let counted = 0;
   let score = document.getElementById('current-score').textContent.toLowerCase().split(' ');
   guess = document.getElementById('option-' + id + '-name').textContent.toLowerCase();
-  if (guess === answer) {
+  if (guess === answer || answer.includes(guess)) {
     document.getElementById('option-' + id).setAttribute('src', './answers/checkmark.png');
     let scoreChange = Number(score.slice()[0]);
     scoreChange++;
@@ -91,6 +92,7 @@ function setQuestion(options) {
   answer = pokemons[options[0]].weakness;
   hint = pokemons[options[0]].type;
   document.getElementById('hint-button').addEventListener('click', function() {document.getElementById('hint-type').setAttribute('src', './symbols/' + hint + '.png');}); //add listener to hint 
+  console.log(answer);
   options.shift();
 }
 
