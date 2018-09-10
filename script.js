@@ -40,14 +40,17 @@ function getRandomInt(min, max) {
 }
 
 function checkAnswer(id) {
-  let counted = 0;
   let score = document.getElementById('current-score').textContent.toLowerCase().split(' ');
   guess = document.getElementById('option-' + id + '-name').textContent.toLowerCase();
   if (guess === answer || answer.includes(guess)) {
     document.getElementById('option-' + id).setAttribute('src', './answers/checkmark.png');
-    let scoreChange = Number(score.slice()[0]);
-    scoreChange++;
-    document.getElementById('current-score').innerHTML = scoreChange.toString() + ' out of 5 correct';
+    if (document.getElementById('arrow').style.visibility === 'hidden') {
+      let scoreChange = Number(score.slice()[0]);
+      scoreChange++;
+      document.getElementById('current-score').innerHTML = scoreChange.toString() + ' out of 5 correct';
+    } else {
+      return;
+    }
   } else {
     document.getElementById('option-' + id).setAttribute('src', './answers/X.png');
   }
@@ -92,7 +95,6 @@ function setQuestion(options) {
   answer = pokemons[options[0]].weakness;
   hint = pokemons[options[0]].type;
   document.getElementById('hint-button').addEventListener('click', function() {document.getElementById('hint-type').setAttribute('src', './symbols/' + hint + '.png');}); //add listener to hint 
-  console.log(answer);
   options.shift();
 }
 
