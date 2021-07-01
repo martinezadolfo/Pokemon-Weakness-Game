@@ -1,4 +1,7 @@
-# pokeomon-weakness-game
-<h1> Guess the Pokemon's weakness! </h1>
+# Pokemon-Weakness-Game 
 
-Cicking the hint will give you the pokemon's type.
+Guess the pokemon's weakness!
+Click the hint to get the target pokemon's type.
+ 
+ 
+ ![Game Demo](/PokemonGameDemo.PNG) 
